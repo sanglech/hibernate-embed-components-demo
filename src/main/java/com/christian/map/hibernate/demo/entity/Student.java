@@ -22,6 +22,15 @@ public class Student {
     //@Embedded //not needed hibernate can infer
     private Address homeAddress;
 
+    @AttributeOverrides({
+            @AttributeOverride(name="street",
+                    column=@Column(name="BILLING_STREET")),
+            @AttributeOverride(name="city",
+                    column=@Column(name="BILLING_CITY")),
+            @AttributeOverride(name="zipcode",
+                    column=@Column(name="BILLING_ZIPCODE"))
+    })
+    private Address billingAddress;
 
     public Student() {
 
@@ -72,6 +81,14 @@ public class Student {
 
     public void setHomeAddress(Address homeAddress) {
         this.homeAddress = homeAddress;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     @Override

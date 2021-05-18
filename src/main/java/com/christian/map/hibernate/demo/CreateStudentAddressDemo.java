@@ -22,6 +22,7 @@ public class CreateStudentAddressDemo {
             //create the object
             Student tempStudent= new Student("John","Doe","john@doe.com");
             Address homeAddress= new Address("street123","Osaka","123456");
+            Address billingAddress= new Address("ave123","toronto","010101");
 
             //start a transaction
             session.beginTransaction();
@@ -29,6 +30,7 @@ public class CreateStudentAddressDemo {
             //save the obj
             System.out.println("Saving the student and address");
             tempStudent.setHomeAddress(homeAddress);
+            tempStudent.setBillingAddress((billingAddress));
             session.persist(tempStudent);
 
             //commit the transaction
