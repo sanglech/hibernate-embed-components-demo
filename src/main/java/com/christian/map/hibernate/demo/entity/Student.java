@@ -7,28 +7,32 @@ import javax.persistence.*;
 @Table(name="student")
 public class Student {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private Status status;
 
     //@Embedded //not needed hibernate can infer
     private Address homeAddress;
 
     @AttributeOverrides({
-            @AttributeOverride(name="street",
-                    column=@Column(name="BILLING_STREET")),
-            @AttributeOverride(name="city",
-                    column=@Column(name="BILLING_CITY")),
-            @AttributeOverride(name="zipcode",
-                    column=@Column(name="BILLING_ZIPCODE"))
+            @AttributeOverride(name = "street",
+                    column = @Column(name = "BILLING_STREET")),
+            @AttributeOverride(name = "city",
+                    column = @Column(name = "BILLING_CITY")),
+            @AttributeOverride(name = "zipcode",
+                    column = @Column(name = "BILLING_ZIPCODE"))
     })
     private Address billingAddress;
 
@@ -36,11 +40,11 @@ public class Student {
 
     }
 
-
-    public Student(String firstName, String lastName, String email) {
+    public Student(String firstName, String lastName, String email, Status status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.status = status;
     }
 
     public int getId() {
@@ -91,6 +95,14 @@ public class Student {
         this.billingAddress = billingAddress;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -98,6 +110,9 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", status=" + status +
+                ", homeAddress=" + homeAddress +
+                ", billingAddress=" + billingAddress +
                 '}';
     }
 }
